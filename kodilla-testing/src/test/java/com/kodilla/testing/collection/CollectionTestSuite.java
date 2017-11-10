@@ -33,6 +33,7 @@ public class CollectionTestSuite {
         OddNumberExterminator oddNumberExterminator = new OddNumberExterminator();
         List<Integer> emptyList = new ArrayList<>();
         //When
+
         List<Integer> actual = oddNumberExterminator.exterminate(emptyList);
         System.out.println("Testing EmptyList");
         //Then
