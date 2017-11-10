@@ -31,8 +31,8 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorEmptyList(){
         //Given
         OddNumberExterminator oddNumberExterminator = new OddNumberExterminator();
-        //When
         List<Integer> emptyList = new ArrayList<>();
+        //When
         List<Integer> actual = oddNumberExterminator.exterminate(emptyList);
         System.out.println("Testing EmptyList");
         //Then
@@ -42,10 +42,10 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorNormalList(){
         //Given
         OddNumberExterminator oddNumberExterminator = new OddNumberExterminator();
-        //When
         List<Integer> listToTest = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        List<Integer> actual = oddNumberExterminator.exterminate(listToTest);
         List<Integer> expected  = new ArrayList<>(Arrays.asList(2, 4, 6, 8, 10));
+        //When
+        List<Integer> actual = oddNumberExterminator.exterminate(listToTest);
         System.out.println("Testing normal List");
         //Then
         Assert.assertTrue(actual.equals(expected));
@@ -55,10 +55,10 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorNormalListJ8(){
         //Given
         OddNumberExterminator oddNumberExterminator = new OddNumberExterminator();
-        //When
         List<Integer> listToTest = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        List<Integer> actual = oddNumberExterminator.exterminateJ8(listToTest);
         List<Integer> expected  = new ArrayList<>(Arrays.asList(2, 4, 6, 8, 10));
+        //When
+        List<Integer> actual = oddNumberExterminator.exterminateJ8(listToTest);
         System.out.println("Testing normal List(J8)");
         //Then
         Assert.assertTrue(actual.equals(expected));

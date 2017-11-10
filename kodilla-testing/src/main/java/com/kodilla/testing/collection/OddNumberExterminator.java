@@ -20,7 +20,7 @@ public class OddNumberExterminator {
         if(numbers.isEmpty()){
             return null;
         }
-        return numbers.stream().filter( i -> i % 2 ==0).collect(Collectors.toList());
+        return numbers.stream().filter( nr -> nr % 2 ==0).collect(Collectors.toList());
 
     }
 }
