@@ -11,11 +11,7 @@ public class ShapeCollector {
         shapeList.add(shape);
     }
     public boolean removeFigure(Shape shape){
-        if(shapeList.contains(shape)){
-            shapeList.remove(shape);
-            return true;
-        }
-      return false;
+      return  shapeList.remove(shape);
     }
     public Shape getFigure( int n){
         if( n >= 0 && n < shapeList.size()){
@@ -24,6 +20,6 @@ public class ShapeCollector {
      return null;
     }
     public String showFigures(){
-        return  shapeList.stream().map( s -> s.getShapeName()).collect(Collectors.joining());
+        return  shapeList.stream().map( s -> s.getShapeName()+ "\n").collect(Collectors.joining());
     }
 }

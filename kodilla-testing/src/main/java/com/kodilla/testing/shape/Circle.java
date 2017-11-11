@@ -1,7 +1,6 @@
 package com.kodilla.testing.shape;
 
 public class Circle implements Shape{
-    private final double PI = 3.14159;
     private double radius;
 
     public Circle(double radius) {
@@ -9,10 +8,10 @@ public class Circle implements Shape{
     }
     @Override
     public String getShapeName() {
-        return null;
+        return this.getClass().toString();
     }
     @Override
     public double getField() {
-        return  PI * radius * radius;
+        return  Math.PI * radius * radius;
     }
 }

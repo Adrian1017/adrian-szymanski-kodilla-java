@@ -10,6 +10,7 @@ public class Triangle implements Shape{
     }
     @Override
     public String getShapeName() {
+
         return this.getClass().toString();
     }
 

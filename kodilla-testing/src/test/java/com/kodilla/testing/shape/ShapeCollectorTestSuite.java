@@ -22,7 +22,6 @@ public class ShapeCollectorTestSuite {
         System.out.println("Preparing to execute test #" + testCounter);
     }
 
-
     @Test
     public void testSquareField(){
         //Given
@@ -31,18 +30,18 @@ public class ShapeCollectorTestSuite {
         //When
         double  resultActual = square.getField();
         //Then
-        Assert.assertTrue(resultExpected ==resultActual);
+        Assert.assertEquals(resultExpected,resultActual,0);
     }
 
     @Test
     public void testCircleField(){
         //Given
         Circle circle = new Circle(10);
-        double resultExpected = 3.14159 * 10 * 10;
+        double resultExpected = Math.PI * 10 * 10;
         //When
         double  resultActual = circle.getField();
         //Then
-        Assert.assertTrue(resultExpected ==resultActual);
+        Assert.assertEquals(resultExpected,resultActual, 0);
     }
     @Test
     public void testTriangleField(){
@@ -52,67 +51,107 @@ public class ShapeCollectorTestSuite {
         //When
         double  resultActual = triangle.getField();
         //Then
-        Assert.assertTrue(resultExpected ==resultActual);
+        Assert.assertEquals(resultExpected, resultActual, 0);
     }
 
+
     @Test
-    public void testAddShape() {
+    public void testAddTriangle() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Triangle triangle = new Triangle(10,10);
-        Circle circle = new Circle(10);
-        Square square = new Square(10);
         //When
         shapeCollector.addFigure(triangle);
-        shapeCollector.addFigure(circle);
-        shapeCollector.addFigure(square);
-
         //Then
         Assert.assertEquals(shapeCollector.getFigure(0),triangle);
-        Assert.assertEquals(shapeCollector.getFigure(1),circle);
-        Assert.assertEquals(shapeCollector.getFigure(2),square);
     }
-
     @Test
-    public void testRemoveShape() {
+    public void testAddCircle() {
+        //Given
+        ShapeCollector shapeCollector = new ShapeCollector();
+        Circle circle = new Circle(10);
+        //When
+        shapeCollector.addFigure(circle);
+        //Then
+        Assert.assertEquals(shapeCollector.getFigure(0),circle);
+    }
+    @Test
+    public void testAddSquare() {
+        //Given
+        ShapeCollector shapeCollector = new ShapeCollector();
+        Square square = new Square(10);
+        //When
+        shapeCollector.addFigure(square);
+        //Then
+        Assert.assertEquals(shapeCollector.getFigure(0),square);
+    }
+    @Test
+    public void testRemoveTriangle() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Triangle triangle = new Triangle(10,10);
-        Circle circle = new Circle(10);
-        Square square = new Square(10);
         shapeCollector.addFigure(triangle);
-        shapeCollector.addFigure(circle);
-        shapeCollector.addFigure(square);
-
-        //Then
+        //When
         boolean result1 = shapeCollector.removeFigure(triangle);
-        boolean result2 = shapeCollector.removeFigure(circle);
-        boolean result3 = shapeCollector.removeFigure(square);
         //Then
         Assert.assertTrue(result1);
+    }
+    @Test
+    public void testRemoveCircle() {
+        //Given
+        ShapeCollector shapeCollector = new ShapeCollector();
+        Circle circle = new Circle(10);
+        shapeCollector.addFigure(circle);
+        //When
+        boolean result2 = shapeCollector.removeFigure(circle);
+        //Then
         Assert.assertTrue(result2);
+    }
+    @Test
+    public void testRemoveSquare() {
+        //Given
+        ShapeCollector shapeCollector = new ShapeCollector();
+        Square square = new Square(10);
+        shapeCollector.addFigure(square);
+        //When
+        boolean result3 = shapeCollector.removeFigure(square);
+        //Then
         Assert.assertTrue(result3);
     }
     @Test
-    public void testGetShape() {
+    public void testGetTriangle() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Triangle triangleExpected = new Triangle(10,10);
-        Circle circleExpected = new Circle(10);
-        Square squareExpected = new Square(10);
         shapeCollector.addFigure(triangleExpected);
-        shapeCollector.addFigure(circleExpected);
-        shapeCollector.addFigure(squareExpected);
-
-        //Then
+        //When
         Triangle triangleActual = (Triangle) shapeCollector.getFigure(0);
-        Circle circleActual = (Circle) shapeCollector.getFigure(1);
-        Square squareActual = (Square) shapeCollector.getFigure(2);
         //Then
         Assert.assertEquals(triangleExpected,triangleActual);
+    }
+    @Test
+    public void testGetCircle() {
+        //Given
+        ShapeCollector shapeCollector = new ShapeCollector();
+        Circle circleExpected = new Circle(10);
+        shapeCollector.addFigure(circleExpected);
+        //When
+        Circle circleActual = (Circle) shapeCollector.getFigure(0);
+        //Then
         Assert.assertEquals(circleExpected, circleActual);
+    }
+    @Test
+    public void testGetSquare() {
+        //Given
+        ShapeCollector shapeCollector = new ShapeCollector();
+        Square squareExpected = new Square(10);
+        shapeCollector.addFigure(squareExpected);
+        //When
+        Square squareActual = (Square) shapeCollector.getFigure(0);
+        //Then
         Assert.assertEquals(squareExpected,squareActual);
     }
+
     @Test
     public void testShowShape() {
         //Given
@@ -124,11 +163,11 @@ public class ShapeCollectorTestSuite {
         shapeCollector.addFigure(circle);
         shapeCollector.addFigure(square);
 
-        //Then
+        //When
         String shapesName = shapeCollector.showFigures();
         //Then
-        Assert.assertTrue(shapesName.equals(triangle.getShapeName()+circle.getShapeName()+
-        square.getShapeName()));
+        Assert.assertTrue(shapesName.equals(triangle.getShapeName()+ "\n" +circle.getShapeName()+"\n" +
+        square.getShapeName() + "\n"));
     }
 
 }
