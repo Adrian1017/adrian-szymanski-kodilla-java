@@ -6,7 +6,7 @@ public interface ArrayOperations {
      public static double getAverage(int [] numbers){
          IntStream.range(0, numbers.length)
                  .map(i -> numbers[i])
-                 .forEach( n -> System.out.print(n +" "));
+                 .forEach( n -> System.out.print(n + " "));
 
     return IntStream.range(0,numbers.length)
             .map(n -> numbers[n])
