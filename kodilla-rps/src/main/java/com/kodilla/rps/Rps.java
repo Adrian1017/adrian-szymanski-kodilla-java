@@ -1,125 +1,197 @@
 package com.kodilla.rps;
 
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Rps {
-    private int numberOfWonRounds;
+
+    private int numberOfRounds;
     private boolean end = false;
-    private HandScore handScore;
+    private boolean classicGame = true;
+    private char[] regex;
     private Random random = new Random();
-    Player player;
-    Player computer = new Player("Computer");
+    private HallOfFame hallOfFame = new HallOfFame();
+    private Player player;
+    private Player computer;
+
+    private enum Score {
+        WON,LOST, DRAW
+    }
+
 
 
     public void run(){
         while(!end){
             startMenu();
-            mainGame();
-            endGame();
+            Game();
+            endMenu();
            }
+           Input.sc.close();
       }
 
     private void startMenu(){
-        System.out.println("Podaj imie gracza");
-        player = new Player(Input.text());
-        System.out.println("Podaj liczbe rund");
-        numberOfWonRounds = Input.number();
-        computer = new Player("Computer");
+        System.out.println("Rock-Paper-Scissors");
+        System.out.println("Your name:");
+        player = new Player(Input.text(),0);
+        System.out.println("Key 1 - \"Classic Game\"");
+        System.out.println("Key 2 - \"Spock Game\"");
+
+        if( Input.sign(new char[]{'1','2'}) == '1'){
+            regex = Arrays.copyOf(new char[] {'1', '2','3','q','r'},5);
+            classicGame = true;
+        }
+        else{
+            regex = Arrays.copyOf(new char[] {'1', '2','3','4','5','q','r'},7);
+            classicGame = false;
+        }
+        System.out.println("Number of rounds(1-9):");
+        numberOfRounds = Character.getNumericValue(Input.sign(new char[]{'1', '2','3','4','5','6','7','8','9'}));
+        computer = new Player("Computer",0);
     }
-    private void mainGame() {
+
+    private void Game() {
         do {
-            System.out.println("Klawisz 1 - zagranie \"kamień\"");
-            System.out.println("Klawisz 2 - zagranie \"papier\"");
-            System.out.println("Klawisz 3 - zagranie \"nożyce\"");
-            System.out.println("Klawisz x - zakończenie gry");
-            System.out.println("Klawisz n - uruchomienie gry od nowa");
-            char sign = Input.xn123();
-            switch (sign) {
+            System.out.println("Key 1 - Move \"Rock\"");
+            System.out.println("Key 2 - Move \"Paper\"");
+            System.out.println("Key 3 - Move \"Scissor\"");
+            if(!classicGame){
+                System.out.println("Key 4 - Move \"Spock\"");
+                System.out.println("Key 5 - Move \"Lizard\"");
+            }
+            System.out.println("Key q - quit game");
+            System.out.println("Key r - restart game");
+
+            switch ( Input.sign(regex)) {
 
                 case '1':
-                    player.setHand(Hand.ROCK);
+                    player.setMove(Move.ROCK);
                     break;
                 case '2':
-                    player.setHand(Hand.PAPER);
+                    player.setMove(Move.PAPER);
                     break;
                 case '3':
-                    player.setHand(Hand.SCISSOR);
+                    player.setMove(Move.SCISSOR);
                     break;
-                case 'x':
-                    System.out.println("Czy na pewno zakończyć grę? (tak/nie)");
-                    if (Input.text().toLowerCase().contains("tak")) {
+                case '4':
+                    player.setMove(Move.SPOCK);
+                     break;
+                case '5':
+                    player.setMove(Move.LIZARD);
+                    break;
+                case 'q':
+                    System.out.println("Are you sure you want to quit the game? (y/n)");
+                    if (Input.sign(new char[]{'y','n'}) == 'y') {
                         end = true;
                         run();
                     }
                     break;
-
-                case 'n':
-                    System.out.println("Czy na pewno zakończyć aktualna grę? (tak/nie)");
-                    if (Input.text().toLowerCase().contains("tak")) {
+                case 'r':
+                    System.out.println("Are you sure you want to restart the game? (y/n)");
+                    if (Input.sign(new char[]{'y','n'}) == 'y') {
                         run();
                     }
                     break;
             }
 
-            computer.setHand(Hand.values()[random.nextInt(3)]);
-            System.out.println(player.getHand() + " Vs. " + computer.getHand());
-            if (battleWonPlayer1(player.getHand(), computer.getHand())== HandScore.WON ){
-                player.addPoint();
-                System.out.println("Te runde wygral " + player.getName());
-            } else if(battleWonPlayer1(player.getHand(), computer.getHand())== HandScore.LOST )
-                {
-                computer.addPoint();
-                System.out.println("Te runde wygral " + computer.getName());
-            }
-            else{
-                System.out.println("Remis!");
-            }
+            battle();
+            //System.out.println("Rounds: " + numberOfRounds + " Player Points: " + player.getNumberOfPoints() + " Computer Points: " + computer.getNumberOfPoints());
         }
-        while (!(player.getNumberOfPoints() >= numberOfWonRounds || computer.getNumberOfPoints() >= numberOfWonRounds));
+        while (!(player.getNumberOfPoints() >= numberOfRounds || computer.getNumberOfPoints() >= numberOfRounds));
 
 
     }
 
-    private void endGame() {
+    private void battle(){
+        if(classicGame) {
+            computer.setMove(Move.values()[random.nextInt(3)]);
+        }
+        else{
+            computer.setMove(Move.values()[random.nextInt(5)]);
+        }
+        System.out.println(player.getMove() + " vs. " + computer.getMove());
 
-        if(player.getNumberOfPoints() > computer.getNumberOfPoints()){
-            System.out.println("Gre wygral " + player.getName() + "!");
+        if (scoreOfBattle(player.getMove(), computer.getMove())== Score.WON ){
+            player.addPoint();
+            System.out.println( ">" + player.getName() + "<" + " won this round!");
+        } else if(scoreOfBattle(player.getMove(), computer.getMove())== Score.LOST )
+        {
+            computer.addPoint();
+            System.out.println(">" + computer.getName() + "<" + " won this round!");
         }
         else{
-            System.out.println("Gre wygral " + computer.getName() + "!");
+            System.out.println("Draw!");
         }
-        System.out.println("\n");
-        System.out.println("klawisz x - zakończenie gry,");
-        System.out.println("klawisz n - uruchomienie gry od nowa");
-        if(Input.xn123() == 'x'){
-            end = true;
-        }
-        else{
-            run();
-        }
+        System.out.println();
+
     }
-
-    private HandScore battleWonPlayer1(Hand player1, Hand player2) {
+    private Score scoreOfBattle(Move player1, Move player2) {
 
         if( player1 == player2){
-            return HandScore.DRAW;
+            return Score.DRAW;
         }
-        if(player1 == Hand.PAPER){
-            if(player2 == Hand.ROCK){
-                return HandScore.WON;
+        if(player1 == Move.PAPER){
+            if(player2 == Move.ROCK || player2 == Move.SPOCK){
+                return Score.WON;
             }
         }
-        else if(player1 == Hand.SCISSOR){
-             if( player2 == Hand.PAPER){
-                 return HandScore.WON;
+        else if(player1 == Move.SCISSOR){
+             if( player2 == Move.PAPER || player2 == Move.LIZARD){
+                 return Score.WON;
              }
         }
-        else if(player1 == Hand.ROCK){
-            if(player2 == Hand.SCISSOR){
-                return HandScore.WON;
+        else if(player1 == Move.ROCK){
+            if(player2 == Move.SCISSOR || player2 == Move.LIZARD ){
+                return Score.WON;
+            }
+        } else if(player1 == Move.SPOCK) {
+            if (player2 == Move.SCISSOR || player2 == Move.ROCK) {
+                return Score.WON;
+            }
+        } else if(player1 == Move.LIZARD) {
+            if (player2 == Move.PAPER || player2 == Move.SPOCK) {
+                return Score.WON;
             }
         }
-        return HandScore.LOST;
+
+        return Score.LOST;
+    }
+    private void endMenu() {
+
+        if(player.getNumberOfPoints() > computer.getNumberOfPoints()){
+            System.out.println(">>>" + player.getName().toUpperCase() + " won the game<<<");
+            hallOfFame.reloadHoF(player);
+        }
+        else{
+            System.out.println(">>>" + computer.getName().toUpperCase() + " won the game<<<");
+            hallOfFame.reloadHoF(computer);
+        }
+        System.out.println();
+        do {
+            System.out.println("Key q - quit game");
+            System.out.println("Key r - restart game");
+            System.out.println("Key h - Hall of Fame");
+
+            switch (Input.sign(new char[]{'q','r','h'})){
+
+                case 'q':
+                    System.out.println("Are you sure you want to quit the game? (y/n)");
+                    if (Input.sign(new char[]{'y','n'}) == 'y') {
+                        end = true;
+                        run();
+                    }
+                    break;
+                case 'r':
+                    System.out.println("Are you sure you want to restart the game? (y/n)");
+                    if (Input.sign(new char[]{'y','n'}) == 'y') {
+                        run();
+                    }
+                    break;
+                case'h':
+                    hallOfFame.show();
+                    break;
+            }
+
+        }while(!end);
     }
 }

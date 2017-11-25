@@ -1,12 +1,16 @@
 package com.kodilla.rps;
 
+import java.io.Serializable;
+
 public class Player {
+
     private String name;
     private int numberOfPoints;
-    private Hand hand;
+    private Move move;
 
-    public Player(String name) {
+    public Player(String name, int numberOfPoints) {
         this.name = name;
+        this.numberOfPoints = numberOfPoints;
     }
 
     public String getName() {
@@ -21,11 +25,17 @@ public class Player {
         return numberOfPoints;
     }
 
-    public Hand getHand() {
-        return hand;
+    public Move getMove() {
+        return move;
     }
 
-    public void setHand(Hand hand) {
-        this.hand = hand;
+    public void setMove(Move hand) {
+        this.move = hand;
+    }
+
+    @Override
+    public String toString() {
+        return "Player:" + name.toUpperCase() + " " +
+                "Points:" + numberOfPoints;
     }
 }
