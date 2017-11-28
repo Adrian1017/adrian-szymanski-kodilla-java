@@ -9,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class HallOfFame {
-
 
     private void save(List<Player> listHallOfFame) {
         String currentCatalog = System.getProperty("user.dir");
@@ -52,9 +49,9 @@ public class HallOfFame {
         return listHallOfFame;
     }
 
-    public void reloadHoF( Player player){
-        if( fileExist() ) {
-            if(!playerSwitch(player)) {
+    public void reloadHallOfFame(Player player){
+        if( isFileExists() ) { // to do
+            if(!switchPlayer(player)) {
                 List<Player> listHallOfFame = load();
                 if (listHallOfFame.size() < 10) {
                     listHallOfFame.add(player);
@@ -75,17 +72,17 @@ public class HallOfFame {
 
     }
 
-    private boolean playerSwitch( Player playerNew){
+    private boolean switchPlayer(Player newPlayer){
             List<Player> listHallOfFame = load();
             for(int i = 0; i < listHallOfFame.size();i++){
-                if(listHallOfFame.get(i).getName().equals(playerNew.getName())){
-                    Player playerOld = listHallOfFame.get(i);
-                    if(playerOld.getNumberOfPoints() < playerNew.getNumberOfPoints()){
-                        listHallOfFame.remove(playerOld);
-                        listHallOfFame.add(playerNew);
+                boolean isNewPlayerAlreadyExists = listHallOfFame.get(i).getName().equals(newPlayer.getName());
+                if(isNewPlayerAlreadyExists){
+                    Player oldPlayer = listHallOfFame.get(i);
+                    if(oldPlayer.getNumberOfPoints() < newPlayer.getNumberOfPoints()){
+                        listHallOfFame.remove(oldPlayer);
+                        listHallOfFame.add(newPlayer);
                         listHallOfFame.sort( (Player p1, Player p2) -> p2.getNumberOfPoints()-p1.getNumberOfPoints() );
                         save(listHallOfFame);
-
                     }
                     return true;
 
@@ -103,7 +100,7 @@ public class HallOfFame {
             System.out.println();
         }
 
-    private boolean fileExist() {
+    private boolean isFileExists() {
         String currentCatalog = System.getProperty("user.dir");
         Path fileName = Paths.get(currentCatalog, "halof.txt");
         File file = new File(fileName.toString());

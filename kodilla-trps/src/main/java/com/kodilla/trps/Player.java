@@ -1,4 +1,4 @@
-package com.kodilla.rps;
+package com.kodilla.trps;
 
 public class Player {
 
