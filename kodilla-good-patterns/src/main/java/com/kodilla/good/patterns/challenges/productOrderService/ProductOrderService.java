@@ -1,4 +1,4 @@
-package com.kodilla.good.patterns.challenges.ProductOrderService;
+package com.kodilla.good.patterns.challenges.productOrderService;
 
 public class ProductOrderService {
     public static void main(String[] args) {

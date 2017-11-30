@@ -1,8 +1,7 @@
-package com.kodilla.good.patterns.challenges.ProductOrderService;
+package com.kodilla.good.patterns.challenges.productOrderService;
 
 import java.time.LocalDateTime;
 
-public interface OrderService {
+public interface OrderRepository {
     public boolean createOrder(User user, Item item, LocalDateTime dateOfOrder);
 }
-

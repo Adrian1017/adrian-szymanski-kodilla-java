@@ -1,6 +1,4 @@
-package com.kodilla.good.patterns.challenges.Movie;
-
-import com.kodilla.good.patterns.challenges.Movie.MovieStore;
+package com.kodilla.good.patterns.challenges.movie;
 
 import java.util.List;
 import java.util.Map;
