@@ -10,6 +10,11 @@ public class BookingServiceProcessor {
     private FlightRouteService flightRouteService;
     private FlightInformationSystem flightInformationSystem;
     private List<FlightData> listOfFlights = new LinkedList<>();
+    private final static String AIRPORT = "-Airport";
+    private final static String DIRECT_FLIGHTS = "Direct flights from: ";
+    private final static String CONNECTING_FLIGHTS = "On this day there are only connecting flights from: ";
+    private final static String NO_FLIGHTS = "On this day there are no flights to the ";
+    private final static String TO = " to: ";
 
     public BookingServiceProcessor(FlightRouteService flightRouteService, FlightInformationSystem flightInformationSystem) {
         this.flightRouteService = flightRouteService;
@@ -40,20 +45,20 @@ public class BookingServiceProcessor {
     }
 
     private void sendConfirmationForDirectFligth(BookingRequest bookingRequest){
-        String message = "Direct flights from: " + bookingRequest.getFlightRequest().getDepartureAirport()
-                + "-Airport" + " to: " + bookingRequest.getFlightRequest().getArrivalAirport() + "-Airport" + ":\n";
+        String message = DIRECT_FLIGHTS + bookingRequest.getFlightRequest().getDepartureAirport()
+                + AIRPORT + TO + bookingRequest.getFlightRequest().getArrivalAirport() + AIRPORT + ":\n";
         message = message + listOfFlights.stream().map( f -> f.toString()).collect(Collectors.joining("\n"));
         flightInformationSystem.inform( new FlightInformationDto( bookingRequest.getPassenger(), message));
     }
 
     private void sendConfirmationForConnectingFligth(BookingRequest bookingRequest){
-        String message ="On this day there are only connecting flights from: " + bookingRequest.getFlightRequest().getDepartureAirport()
-        + "-Airport" + " to: " + bookingRequest.getFlightRequest().getArrivalAirport()+ "-Airport" + ":\n";
+        String message = CONNECTING_FLIGHTS + bookingRequest.getFlightRequest().getDepartureAirport()
+        + AIRPORT + TO + bookingRequest.getFlightRequest().getArrivalAirport()+ AIRPORT + ":\n";
         message = message + listOfFlights.stream().map( f -> f.toString()).collect(Collectors.joining("\n"));
         flightInformationSystem.inform( new FlightInformationDto( bookingRequest.getPassenger(), message));
     }
     private void sendConfirmationForNoFlight( BookingRequest bookingRequest){
-        String message = "On this day there are no flights to the " + bookingRequest.getFlightRequest().getArrivalAirport() + "-Airport";
+        String message = NO_FLIGHTS + bookingRequest.getFlightRequest().getArrivalAirport() + AIRPORT;
         flightInformationSystem.inform( new FlightInformationDto( bookingRequest.getPassenger(), message));
     }
 }
