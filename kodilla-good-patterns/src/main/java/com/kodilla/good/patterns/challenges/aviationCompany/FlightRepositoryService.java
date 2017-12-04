@@ -1,13 +1,13 @@
 package com.kodilla.good.patterns.challenges.aviationCompany;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public final class FlightRepositoryService implements RepositoryService {
 
-    private final List<Airport> listOfAirports = new LinkedList<>();
+    private final Set<Airport> listOfAirports = new HashSet<>();
 
     public FlightRepositoryService() {
 
@@ -52,7 +52,7 @@ public final class FlightRepositoryService implements RepositoryService {
     }
 
     @Override
-    public List<Airport> getListOfAirports() {
+    public Set<Airport> getListOfAirports() {
         return listOfAirports;
     }
 }

@@ -1,8 +1,8 @@
 package com.kodilla.good.patterns.challenges.aviationCompany;
 
-import java.util.List;
+import java.util.Set;
 
 public interface RouteService {
-    public List<FlightData> findDirectFlight(FlightRequest flightRequest);
-    public List<FlightData> findConnectingFlight( FlightRequest flightRequest);
+    public Set<FlightData> findDirectFlight(FlightRequest flightRequest);
+    public Set<FlightData> findConnectingFlight( FlightRequest flightRequest);
 }

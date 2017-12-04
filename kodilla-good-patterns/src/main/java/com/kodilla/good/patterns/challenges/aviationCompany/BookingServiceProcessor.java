@@ -1,15 +1,15 @@
 package com.kodilla.good.patterns.challenges.aviationCompany;
 
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class BookingServiceProcessor {
 
     private FlightRouteService flightRouteService;
     private FlightInformationSystem flightInformationSystem;
-    private List<FlightData> listOfFlights = new LinkedList<>();
+    private Set<FlightData> listOfFlights = new HashSet<>();
     private final static String AIRPORT = "-Airport";
     private final static String DIRECT_FLIGHTS = "Direct flights from: ";
     private final static String CONNECTING_FLIGHTS = "On this day there are only connecting flights from: ";

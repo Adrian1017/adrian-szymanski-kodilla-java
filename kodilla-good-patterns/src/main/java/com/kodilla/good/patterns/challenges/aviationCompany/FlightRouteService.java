@@ -1,8 +1,9 @@
 package com.kodilla.good.patterns.challenges.aviationCompany;
 
+
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FlightRouteService implements  RouteService {
@@ -13,9 +14,9 @@ public class FlightRouteService implements  RouteService {
     }
 
     @Override
-    public List<FlightData> findDirectFlight(FlightRequest flightRequest) {
+    public Set<FlightData> findDirectFlight(FlightRequest flightRequest) {
 
-        List<Airport> listOfAirports = repositoryService.getListOfAirports();
+        Set<Airport> listOfAirports = repositoryService.getListOfAirports();
 
         int numberOfDayOfWeek = flightRequest.getDateOfDeparture().getDayOfWeek().getValue();
 
@@ -24,28 +25,28 @@ public class FlightRouteService implements  RouteService {
                 .filter( flight -> flight.getDepartureAirport().equals(flightRequest.getDepartureAirport()))
                 .filter(flight -> flight.getArrivalAirport().equals(flightRequest.getArrivalAirport()))
                 .filter(flight -> Arrays.asList(flight.getWeeklyFlights()).get(numberOfDayOfWeek - 1).equals(true))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @Override
-    public List<FlightData> findConnectingFlight(FlightRequest flightRequest) {
-        List<Airport> listOfAirports = repositoryService.getListOfAirports();
+    public Set<FlightData> findConnectingFlight(FlightRequest flightRequest) {
+           Set<Airport> listOfAirports = repositoryService.getListOfAirports();
 
         int numberOfDayOfWeek = flightRequest.getDateOfDeparture().getDayOfWeek().getValue();
 
-        List<FlightData> listOfpossibleDeparturesFlights = listOfAirports.stream()
+        Set<FlightData> listOfpossibleDeparturesFlights = listOfAirports.stream()
                 .flatMap( a -> a.getListOfDepartures().stream())
                 .filter( f -> f.getDepartureAirport().equals(flightRequest.getDepartureAirport()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
 
-        List<FlightData> listOfpossibleArrivalFlights = listOfAirports.stream()
+        Set<FlightData> listOfpossibleArrivalFlights = listOfAirports.stream()
                 .flatMap( a -> a.getListOfDepartures().stream())
                 .filter( f -> f.getArrivalAirport().equals(flightRequest.getArrivalAirport()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
 
-        List<FlightData> listOfConnectingFlights = new LinkedList<>();
+        Set<FlightData> listOfConnectingFlights = new HashSet<>();
 
         for( FlightData flightDeparture : listOfpossibleDeparturesFlights){
             for( FlightData flightArrival : listOfpossibleArrivalFlights){
