@@ -5,4 +5,5 @@ include 'kodilla-rps'
 include 'kodilla-exception'
 include 'kodilla-trps'
 include 'kodilla-good-patterns'
+include 'kodilla-spring-intro'
 

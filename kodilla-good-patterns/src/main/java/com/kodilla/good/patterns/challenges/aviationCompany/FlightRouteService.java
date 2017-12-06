@@ -1,6 +1,5 @@
 package com.kodilla.good.patterns.challenges.aviationCompany;
 
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
