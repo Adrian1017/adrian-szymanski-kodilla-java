@@ -1,12 +1,12 @@
 package com.kodilla.patterns.factory.tasks;
 
 public class ShoppingTask implements Task{
-   private String TaskName;
+   private String taskName;
    private String whatToBuy;
    private double quantity;
 
     public ShoppingTask(final String taskName, final String whatToBuy, final double quantity) {
-        TaskName = taskName;
+        this.taskName = taskName;
         this.whatToBuy = whatToBuy;
         this.quantity = quantity;
     }
@@ -18,7 +18,7 @@ public class ShoppingTask implements Task{
 
     @Override
     public String getTaskName() {
-        return this.TaskName;
+        return this.taskName;
     }
 
     @Override

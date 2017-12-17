@@ -8,8 +8,8 @@ public class TaskFactoryTestSuite {
     public void testDrivingTaskName() {
         //Given
         TaskFactory taskFactory = new TaskFactory();
-        //When
         Task drivingTask = taskFactory.makeTask(taskFactory.DRIVING);
+        //When
         String taskName = taskFactory.getTaskList().get(0).getTask().getTaskName();
         //Then
         Assert.assertEquals("holiday",taskName);
@@ -18,8 +18,8 @@ public class TaskFactoryTestSuite {
     public void testDrivingTaskExecute() {
         //Given
         TaskFactory taskFactory = new TaskFactory();
-        //When
         Task drivingTask = taskFactory.makeTask(taskFactory.DRIVING);
+        //When
         boolean isExecute = taskFactory.getTaskList().get(0).isExecute();
         //Then
         Assert.assertEquals(true,isExecute);
@@ -28,8 +28,8 @@ public class TaskFactoryTestSuite {
     public void testPaintingTaskName() {
         //Given
         TaskFactory taskFactory = new TaskFactory();
-        //When
         Task paintingTask = taskFactory.makeTask(taskFactory.PAINTING);
+        //When
         String taskName = taskFactory.getTaskList().get(0).getTask().getTaskName();
         //Then
         Assert.assertEquals("paint1",taskName);
@@ -38,8 +38,8 @@ public class TaskFactoryTestSuite {
     public void testPaintingTaskExecute() {
         //Given
         TaskFactory taskFactory = new TaskFactory();
-        //When
         Task paintingTask = taskFactory.makeTask(taskFactory.PAINTING);
+        //When
         boolean isExecute = taskFactory.getTaskList().get(0).isExecute();
         //Then
         Assert.assertEquals(true,isExecute);
@@ -48,8 +48,8 @@ public class TaskFactoryTestSuite {
     public void testShoppingTaskName() {
         //Given
         TaskFactory taskFactory = new TaskFactory();
-        //When
         Task shoppingTask = taskFactory.makeTask(taskFactory.SHOPPING);
+        //When
         String taskName = taskFactory.getTaskList().get(0).getTask().getTaskName();
         //Then
         Assert.assertEquals("shoes",taskName);
@@ -58,8 +58,8 @@ public class TaskFactoryTestSuite {
     public void testShoppingTaskExecute() {
         //Given
         TaskFactory taskFactory = new TaskFactory();
-        //When
         Task shoppingTask = taskFactory.makeTask(taskFactory.SHOPPING);
+        //When
         boolean isExecute = taskFactory.getTaskList().get(0).isExecute();
         //Then
         Assert.assertEquals(true,isExecute);
