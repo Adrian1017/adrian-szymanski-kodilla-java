@@ -1,15 +1,16 @@
-package com.kodilla.hibernate.tasklist;
+package com.kodilla.hibernate.tasklist.dao;
 
 import com.kodilla.hibernate.task.Task;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "TASKLIST")
-public class git TaskList {
+public class TaskList {
 
     private int id;
     private String listName;
@@ -33,7 +34,7 @@ public class git TaskList {
     public void setId(int id) {
         this.id = id;
     }
-    @Column(name = "LISTNAME")
+    @Column(name = "LIST_NAME")
     public String getListName() {
         return listName;
     }
