@@ -34,7 +34,7 @@ public class TaskList {
     public void setId(int id) {
         this.id = id;
     }
-    @Column(name = "LIST_NAME")
+    @Column(name = "LISTNAME")
     public String getListName() {
         return listName;
     }
@@ -54,7 +54,7 @@ public class TaskList {
             targetEntity = Task.class,
             mappedBy = "taskList",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     public List<Task> getTasks() { return tasks;}
 
