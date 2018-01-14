@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedNativeQuery(name = "Company.finFirstThreeLettersCompany",
+@NamedNativeQuery(name = "Company.findFirstThreeLettersCompany",
         query = "SELECT * FROM companies WHERE LEFT(company_name, 3) = :LETTERS ",
         resultClass = Company.class
 )
